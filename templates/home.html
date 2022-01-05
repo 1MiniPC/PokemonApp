@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Home Page</h2>
+<p>Welcome back, {{ username }}!</p>
+<div><strong>Add Image for Classification</strong>
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="file" onchange="loadFile(event)"></p>
+      <p><input type="submit" value="Submit" ></p>
+    </form>
+    <img src="" align="middle" id="output" alt="Pokemon" name="output" width="360" height="360"/>
+
+
+</div>
+{% if image_name %}
+<div><strong>Image Gallery</strong>
+    <div class="col-xs-6 col-md-3 img-div">
+        <img src="{{url_for('images', filename=image_name)}}" width="360" height="360" />
+           Prediction: {{score}}
+           Type: {{label}} 
+      </div>
+  </div>
+</div>
+{% endif %}
+<script>
+    var loadFile = function(event) {
+        var image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+
+{% endblock %}
